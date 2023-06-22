@@ -68,7 +68,8 @@
           配送料の負担
           <span class="indispensable">必須</span>
         </div>
-        <%= f.collection_select(:shipping_charge_id, ShippingCharge.all, :id, :fee, {}, {class:"select-box", id:"item-shipping-charge"}) %>
+        <%#<%= f.collection_select(:shipping_charge_id, ShippingCharge.all, :id, :fee, {}, {class:"select-box", id:"item-shipping-charge"}) %>
+        <%= f.collection_select(:shipping_charge_id, ShippingCharge.all, :id, :charge, {}, {class:"select-box", id:"item-shipping-charge"}) %>
         <div class="weight-bold-text">
           発送元の地域
           <span class="indispensable">必須</span>
