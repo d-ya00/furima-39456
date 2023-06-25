@@ -28,7 +28,7 @@
         <p class='or-text'>or</p>
         <%= link_to '削除', item_path(@item), method: :delete, data: {turbo_method: :delete}, class:'item-destroy' %>
       <%# そうでない場合、条件分岐 %>
-        <%= link_to '購入画面に進む', "#", class:"item-red-btn"%>
+        <%= link_to "購入画面に進む", item_orders_path(@item) , data: { turbo: false },class:"item-red-btn"%>
       <%# //ログインユーザーと出品者が同一の場合、条件分岐 %>
     <%# //ログインしている、かつ、購入済みの場合、条件分岐 %>
     <div class="item-explain-box">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_23_103055) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_23_103322) do
   create_table "active_storage_attachments", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -46,10 +46,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_23_103055) do
     t.string "house_number", null: false
     t.string "building_name"
     t.string "tel", null: false
-    t.bigint "history_id", null: false
+    t.bigint "order_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["history_id"], name: "index_addresses_on_history_id"
+    t.index ["order_id"], name: "index_addresses_on_order_id"
   end
 
   create_table "histories", charset: "utf8", force: :cascade do |t|
@@ -105,7 +105,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_23_103055) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "addresses", "histories"
+  add_foreign_key "addresses", "orders"
   add_foreign_key "histories", "items"
   add_foreign_key "histories", "users"
   add_foreign_key "items", "users"
