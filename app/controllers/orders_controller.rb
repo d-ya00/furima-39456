@@ -1,11 +1,11 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item, only: [:index, :create]
-
+  
   def index
     @purchase_form = PurchaseForm.new
     @item = Item.find(params[:item_id])
-    redirect_to root_path, alert: '既に購入済みの商品です。' if @item.purchased?
+    
   end
 
   def create
@@ -47,7 +47,8 @@ end
       currency: 'jpy'
     )
   end
-
+  
+  
   
   def set_item
     @item = Item.find(params[:item_id])
