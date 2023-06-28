@@ -3,11 +3,14 @@ class PurchaseForm
   attr_accessor :user_id, :item_id, :postal_code, :prefecture, :city, :house_number, :building_name, :tel, :token
  
   validates :user_id, :item_id, :postal_code, :prefecture, :city, :house_number, presence: true
-  validates :postal_code, presence: { message: '郵便番号を入力してください' }
+  validates :postal_code, format: { with: /\A\d{3}-\d{4}\z/, message: '郵便番号を正しい形式で入力してください' }
   validates :prefecture, presence: { message: '都道府県を選択してください' }
   validates :city, presence: { message: '市区町村を入力してください' }
   validates :house_number, presence: { message: '番地を入力してください' }
-  validates :token, presence: true
+  validates :tel, format: { with: /\A\d{10,11}\z/, message: '電話番号は10桁以上11桁以内の半角数値で入力してください' }
+  validates :token, presence: { message: 'クレジットカード情報を入力してください' }
+
+
   def save
     
       # 各テーブルにデータを保存する処理を書く

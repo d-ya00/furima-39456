@@ -21,6 +21,10 @@ class ItemsController < ApplicationController
   end
 
   def show
+    if @item.orders.present?
+      redirect_to root_path, alert: "売り切れました"
+    end
+  
   end
 
   def edit
