@@ -21,10 +21,7 @@ class ItemsController < ApplicationController
   end
 
   def show
-    if @item.orders.present?
-      redirect_to root_path, alert: "売り切れました"
-    end
-  
+    @item = Item.find(params[:id])
   end
 
   def edit
@@ -67,6 +64,6 @@ class ItemsController < ApplicationController
   end
 
   def redirect_to_show
-    return redirect_to root_path if current_user.id != @item.user.id
+    return redirect_to root_path if current_user.id != @item.user.id || @item.orders.present?
   end
 end

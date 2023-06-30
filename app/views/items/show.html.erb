@@ -1,5 +1,4 @@
 <%= render "shared/header" %>
-
 <%# 商品の概要 %>
 <div class="item-show">
   <div class="item-box">
@@ -7,16 +6,16 @@
       <%= @item.name %>
     </h2>
     <div class='item-img-content'>
-      <%= image_tag @item.image ,class:"item-box-img" %>
+      <%= image_tag @item.image, class: "item-box-img" %>
       <%# 購入済みの場合、条件分岐 %>
-       <% if @item.orders.present? %>
+      <% if @item.orders.present? %>
         <div class='sold-out'>
-          <span>Sold Out!!</span>
+          <span>完売!!</span>
         </div>
-       <% end %>
+      <% end %>
     </div>
     <div class="item-price-box">
-      <span class="item-price">
+      <span class="商品価格">
         ¥ <%= @item.price %>
       </span>
       <span class="item-postage">
@@ -24,23 +23,19 @@
       </span>
     </div>
     <%# ログインしている、かつ、購入済みの場合、条件分岐 %>
-     <%# ログイン中であれば表示 %>
-  <% if user_signed_in? %> 
-  <%# 出品者かつ未購入品であれば、編集・削除を表示 %>
-  <% if current_user.id == @item.user_id && @item.orders.blank? %> 
-    <%= link_to '商品の編集', edit_item_path(@item), method: :get, class: "item-red-btn" %>
-    <p class='or-text'>or</p>
-    <%= link_to '削除', item_path(@item), method: :delete, class:'item-destroy' %>
-  <%# 売却済み商品の場合はトップページにリダイレクト %>
-  <% elsif @item.orders.present? %>
-    <%= link_to "売り切れました", root_path, class: "disabled-button bold" %>
-  <% else %>
-  <%# 出品者以外かつ未購入品であれば、購入画面を表示 %>
-    <%= link_to '購入画面に進む', item_orders_path(@item), class: "item-red-btn" %>
-  <% end %>
-  <% end %>
-
-
+    <%# ログイン中であれば表示 %>
+    <% if user_signed_in? %>
+      <%# 出品者かつ未購入品であれば、編集・削除を表示 %>
+      <% if current_user.id == @item.user_id && @item.orders.blank? %>
+        <%= link_to '商品の編集', edit_item_path(@item), method: :get, class: "item-red-btn" %>
+        <p class='or-text'>or</p>
+        <%= link_to '削除', item_path(@item), method: :delete, class: 'item-destroy' %>
+      <% end %>
+      <%# 出品者以外かつ未購入品の場合、購入画面を表示 %>
+      <% unless current_user.id == @item.user_id || @item.orders.present? %>
+        <%= link_to '購入画面に進む', item_orders_path(@item), class: "item-red-btn" %>
+      <% end %>
+    <% end %>
     <table class="detail-table">
       <tbody>
         <tr>
@@ -71,28 +66,27 @@
     </table>
     <div class="option">
       <div class="favorite-btn">
-        <%= image_tag "star.png" ,class:"favorite-star-icon" ,width:"20",height:"20"%>
+        <%= image_tag "star.png", class: "favorite-star-icon", width: "20", height: "20" %>
         <span>お気に入り 0</span>
       </div>
       <div class="report-btn">
-        <%= image_tag "flag.png" ,class:"report-flag-icon" ,width:"20",height:"20"%>
-        <span>不適切な商品の通報</span>
+        <%= image_tag "flag.png", class: "report-flag-icon", width: "20", height: "20" %>
+        <span>せっかくな商品のお知らせ</span>
       </div>
     </div>
   </div>
   <%# //商品の概要 %>
-
   <div class="comment-box">
     <form>
       <textarea class="comment-text"></textarea>
       <p class="comment-warn">
         相手のことを考え丁寧なコメントを心がけましょう。
         <br>
-        不快な言葉遣いなどは利用制限や退会処分となることがあります。
+        不快な言葉遣いなどは利用制限や退会処分となることがございます。
       </p>
       <button type="submit" class="comment-btn">
-        <%= image_tag "comment.png" ,class:"comment-flag-icon" ,width:"20",height:"25"%>
-        <span>コメントする<span>
+        <%= image_tag "comment.png", class: "コメントフラグアイコン", width: "20", height: "25" %>
+        <span>コメントする</span>
       </button>
     </form>
   </div>
@@ -101,13 +95,11 @@
       ＜ 前の商品
     </a>
     <a href="#" class="change-item-btn">
-      後ろの商品 ＞
+      後ろの商品 >
     </a>
   </div>
-
   <%# 詳細ページで表示されている商品のカテゴリー名を表示しましょう %>
   <a href="#" class='another-item'><%= @item.category.name %>をもっと見る</a>
   <%# //詳細ページで表示されている商品のカテゴリー名を表示しましょう %>
 </div>
-
 <%= render "shared/footer" %>
