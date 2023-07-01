@@ -8,7 +8,7 @@
     <div class='item-img-content'>
       <%= image_tag @item.image, class: "item-box-img" %>
       <%# 購入済みの場合、条件分岐 %>
-      <% if @item.orders.present? %>
+      <% if @item.order.present? %>
         <div class='sold-out'>
           <span>完売!!</span>
         </div>
@@ -26,13 +26,13 @@
     <%# ログイン中であれば表示 %>
     <% if user_signed_in? %>
       <%# 出品者かつ未購入品であれば、編集・削除を表示 %>
-      <% if current_user.id == @item.user_id && @item.orders.blank? %>
+      <% if current_user.id == @item.user_id && @item.order.blank? %>
         <%= link_to '商品の編集', edit_item_path(@item), method: :get, class: "item-red-btn" %>
         <p class='or-text'>or</p>
         <%= link_to '削除', item_path(@item), method: :delete, class: 'item-destroy' %>
       <% end %>
       <%# 出品者以外かつ未購入品の場合、購入画面を表示 %>
-      <% unless current_user.id == @item.user_id || @item.orders.present? %>
+      <% unless current_user.id == @item.user_id || @item.order.present? %>
         <%= link_to '購入画面に進む', item_orders_path(@item), class: "item-red-btn" %>
       <% end %>
     <% end %>

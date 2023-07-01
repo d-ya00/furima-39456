@@ -71,43 +71,45 @@ RSpec.describe PurchaseForm, type: :model do
       it '郵便番号が空だと保存できないこと' do
         @purchase_form.postal_code = nil
         @purchase_form.valid?
-        expect(@purchase_form.errors.full_messages).to include("Postal code can't be blank")
+        expect(@purchase_form.errors[:postal_code]).to include("郵便番号を正しい形式で入力してください")
       end
 
       it '郵便番号にハイフンがないと保存できないこと' do
-        purchase_form = PurchaseForm.new(postal_code: '1234567')
-        purchase_form.valid?
-        expect(purchase_form.errors[:postal_code]).to include("郵便番号を正しい形式で入力してください")
+        @purchase_form = PurchaseForm.new(postal_code: '1234567')
+        @purchase_form.valid?
+        expect(@purchase_form.errors[:postal_code]).to include("郵便番号を正しい形式で入力してください")
       end
 
       it '都道府県が「---」だと保存できないこと' do
-        @purchase_form.prefecture = nil
+        @purchase_form.prefecture = '---'
         @purchase_form.valid?
-        expect(@purchase_form.errors.full_messages).to include("Prefecture can't be blank")
+        expect(@purchase_form.errors[:prefecture]).to include('都道府県を選択してください')
       end
 
       it '都道府県が空だと保存できないこと' do
         @purchase_form.prefecture = nil
         @purchase_form.valid?
-        expect(@purchase_form.errors[:prefecture]).to include('都道府県を選択してください')
+        expect(@purchase_form.errors[:prefecture]).to include("can't be blank")
       end
 
       it '市区町村が空だと保存できないこと' do
         @purchase_form.city = nil
         @purchase_form.valid?
-        expect(@purchase_form.errors.full_messages).to include("City can't be blank")
+        expect(@purchase_form.errors.full_messages).to include("City 市区町村を入力してください")
       end
+      
 
       it '番地が空だと保存できないこと' do
         @purchase_form.house_number = nil
         @purchase_form.valid?
-        expect(@purchase_form.errors.full_messages).to include("House number can't be blank")
+        expect(@purchase_form.errors[:house_number]).to include("番地を入力してください")
       end
-
+      
+      
       it '電話番号が空だと保存できないこと' do
-        purchase_form = PurchaseForm.new(tel: nil)
-        purchase_form.valid?
-        expect(purchase_form.errors[:tel]).to include("電話番号は10桁以上11桁以内の半角数値で入力してください")
+        @purchase_form = PurchaseForm.new(tel: nil)
+        @purchase_form.valid?
+        expect(@purchase_form.errors[:tel]).to include("電話番号は10桁以上11桁以内の半角数値で入力してください")
       end
       
 
@@ -118,15 +120,21 @@ RSpec.describe PurchaseForm, type: :model do
       end
 
       it '電話番号が12桁以上あると保存できないこと' do
-        purchase_form = PurchaseForm.new(tel: '12345678910123111')
-        purchase_form.valid?
-        expect(purchase_form.errors[:tel]).to include('電話番号は10桁以上11桁以内の半角数値で入力してください')
+        @purchase_form = PurchaseForm.new(tel: '12345678910123111')
+        @purchase_form.valid?
+        expect(@purchase_form.errors[:tel]).to include('電話番号は10桁以上11桁以内の半角数値で入力してください')
+      end
+
+      it '電話番号が9桁以下だと保存できないこと' do
+        @purchase_form.tel = '123456789'
+        @purchase_form.valid?
+        expect(@purchase_form.errors[:tel]).to include('電話番号は10桁以上11桁以内の半角数値で入力してください')
       end
 
       it 'トークンが空だと保存できないこと' do
-        purchase_form = PurchaseForm.new(token: nil)
-        purchase_form.valid?
-        expect(purchase_form.errors[:token]).to include("クレジットカード情報を入力してください")
+        @purchase_form.token = nil
+        @purchase_form.valid?
+        expect(@purchase_form.errors[:token]).to include("クレジットカード情報を入力してください")
       end    
     end
   end

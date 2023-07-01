@@ -133,7 +133,7 @@
         <div class='item-img-content'>
           <%= image_tag item.image, class: "item-img" %>
           <%# 購入済みの場合、条件分岐 %>
-          <% if item.orders.present? %>
+          <% if item.order.present? %>
           <div class='sold-out'>
             <span>Sold Out!!</span>
           </div>

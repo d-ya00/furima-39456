@@ -21,7 +21,7 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
+   
   end
 
   def edit
@@ -64,6 +64,6 @@ class ItemsController < ApplicationController
   end
 
   def redirect_to_show
-    return redirect_to root_path if current_user.id != @item.user.id || @item.orders.present?
+    return redirect_to root_path if current_user.id != @item.user.id || @item.order.present?
   end
 end

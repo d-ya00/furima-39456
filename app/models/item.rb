@@ -1,7 +1,7 @@
 class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
-  has_many :orders
+  has_one :order
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
@@ -29,7 +29,7 @@ class Item < ApplicationRecord
   end
 
   def purchased?
-    orders.exists? # 購入情報が存在するかどうかをチェックする
+    order.present? # 注文が存在するかどうかをチェックする
   end
 
 end
