@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   before_action :set_item, only: [:index, :create]
   before_action :check_purchase_status, only: [:index]
   before_action :set_public_key, only: [:index, :create]
-  
+
   def index
     @purchase_form = PurchaseForm.new
     redirect_to root_path if @item.order&.exists? || current_user.id == @item.user_id
@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
 
   def create
     @purchase_form = PurchaseForm.new(purchase_params)
-    
+    binding.pry
 
     if @purchase_form.valid?
       pay_item

@@ -34,7 +34,7 @@
 - belongs_to :user
 - has_one :order
 
-## orderテーブル
+## ordersテーブル
 | Column | Type | Option |
 |-|-|-|
 | id(PK) | integer | null: false |
@@ -44,8 +44,9 @@
 ### Association
 - belongs_to :user
 - belongs_to :item
+- has_one :address
 
-## addressテーブル
+## addressesテーブル
 | Column | Type | Option |
 |-|-|-|
 | id(PK) | integer | null: false |

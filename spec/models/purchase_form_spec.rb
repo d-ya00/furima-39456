@@ -30,7 +30,7 @@ RSpec.describe PurchaseForm, type: :model do
       end
 
       it '都道府県が「---」以外かつ空でなければ保存できる' do
-        @purchase_form.prefecture = { id: 1, name: '北海道' }
+        @purchase_form.prefecture = 1
         expect(@purchase_form).to be_valid
       end
 
@@ -80,11 +80,16 @@ RSpec.describe PurchaseForm, type: :model do
         expect(@purchase_form.errors[:postal_code]).to include("郵便番号を正しい形式で入力してください")
       end
 
+      
       it '都道府県が「---」だと保存できないこと' do
-        @purchase_form.prefecture = '---'
+        @purchase_form.prefecture = 0
         @purchase_form.valid?
         expect(@purchase_form.errors[:prefecture]).to include('都道府県を選択してください')
       end
+      
+      
+      
+      
 
       it '都道府県が空だと保存できないこと' do
         @purchase_form.prefecture = nil
