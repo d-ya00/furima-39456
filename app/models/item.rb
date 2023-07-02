@@ -1,6 +1,7 @@
 class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
+  has_one :order
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
@@ -26,4 +27,9 @@ class Item < ApplicationRecord
     validates :shipping_date_id
     validates :prefecture_id
   end
+
+  def purchased?
+    order.present? # 注文が存在するかどうかをチェックする
+  end
+
 end

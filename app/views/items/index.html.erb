@@ -118,7 +118,6 @@
       </li>
     </ul>
   </div>
-  <%# //FURIMAの特徴 %>
 
   <%# 商品一覧 %>
   <div class='item-contents'>
@@ -133,13 +132,13 @@
         <%= link_to item_path(item) do %>
         <div class='item-img-content'>
           <%= image_tag item.image, class: "item-img" %>
-          <%# sold outの表示 %>
           <%# 購入済みの場合、条件分岐 %>
+          <% if item.order.present? %>
           <div class='sold-out'>
             <span>Sold Out!!</span>
           </div>
+           <% end %>
           <%# //購入済みの場合、条件分岐 %>
-          <%# //sold outの表示 %>
         </div>
         <div class='item-info'>
           <h3 class='item-name'>
