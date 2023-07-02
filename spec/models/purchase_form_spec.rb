@@ -75,7 +75,7 @@ RSpec.describe PurchaseForm, type: :model do
       end
 
       it '郵便番号にハイフンがないと保存できないこと' do
-        @purchase_form = PurchaseForm.new(postal_code: '1234567')
+        @purchase_form.postal_code = '1234567'
         @purchase_form.valid?
         expect(@purchase_form.errors[:postal_code]).to include("郵便番号を正しい形式で入力してください")
       end
@@ -86,10 +86,6 @@ RSpec.describe PurchaseForm, type: :model do
         @purchase_form.valid?
         expect(@purchase_form.errors[:prefecture]).to include('都道府県を選択してください')
       end
-      
-      
-      
-      
 
       it '都道府県が空だと保存できないこと' do
         @purchase_form.prefecture = nil
@@ -112,7 +108,7 @@ RSpec.describe PurchaseForm, type: :model do
       
       
       it '電話番号が空だと保存できないこと' do
-        @purchase_form = PurchaseForm.new(tel: nil)
+        @purchase_form.tel = '0'
         @purchase_form.valid?
         expect(@purchase_form.errors[:tel]).to include("電話番号は10桁以上11桁以内の半角数値で入力してください")
       end
@@ -125,7 +121,7 @@ RSpec.describe PurchaseForm, type: :model do
       end
 
       it '電話番号が12桁以上あると保存できないこと' do
-        @purchase_form = PurchaseForm.new(tel: '12345678910123111')
+        @purchase_form.tel = '1234123412345'
         @purchase_form.valid?
         expect(@purchase_form.errors[:tel]).to include('電話番号は10桁以上11桁以内の半角数値で入力してください')
       end

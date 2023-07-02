@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
 
   def create
     @purchase_form = PurchaseForm.new(purchase_params)
-    binding.pry
+    
 
     if @purchase_form.valid?
       pay_item
