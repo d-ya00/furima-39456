@@ -21,6 +21,9 @@
       <span class="item-postage">
         <%= @item.shipping_charge.charge %>
       </span>
+       <span class="item-postage">
+        <%= @item.description %>
+      </span>
     </div>
     <%# ログインしている、かつ、購入済みの場合、条件分岐 %>
     <%# ログイン中であれば表示 %>
@@ -29,7 +32,7 @@
       <% if current_user.id == @item.user_id && @item.order.blank? %>
         <%= link_to '商品の編集', edit_item_path(@item), method: :get, class: "item-red-btn" %>
         <p class='or-text'>or</p>
-        <%= link_to '削除', item_path(@item), method: :delete, class: 'item-destroy' %>
+        <%= link_to '削除', item_path(@item), data: { turbo_method: :delete }, class: 'item-destroy' %>
       <% end %>
       <%# 出品者以外かつ未購入品の場合、購入画面を表示 %>
       <% unless current_user.id == @item.user_id || @item.order.present? %>
