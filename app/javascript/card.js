@@ -1,4 +1,3 @@
-console.log("ok")
 const pay = () => {
   const publicKey = gon.public_key
   const payjp = Payjp(publicKey)

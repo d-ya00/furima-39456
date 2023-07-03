@@ -82,7 +82,7 @@ RSpec.describe PurchaseForm, type: :model do
 
       
       it '都道府県が「---」だと保存できないこと' do
-        @purchase_form.prefecture = 0
+        @purchase_form.prefecture = "0"
         @purchase_form.valid?
         expect(@purchase_form.errors[:prefecture]).to include('都道府県を選択してください')
       end
