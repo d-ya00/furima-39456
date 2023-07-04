@@ -30,13 +30,13 @@
     <% if user_signed_in? %>
       <%# 出品者かつ未購入品であれば、編集・削除を表示 %>
       <% if current_user.id == @item.user_id && @item.order.blank? %>
-        <%= link_to '商品の編集', edit_item_path(@item), method: :get, class: "item-red-btn" %>
+        <%= link_to '商品の編集', edit_item_path(@item), data: { turbo: false }, method: :get, class: "item-red-btn" %>
         <p class='or-text'>or</p>
         <%= link_to '削除', item_path(@item), data: { turbo_method: :delete }, class: 'item-destroy' %>
       <% end %>
       <%# 出品者以外かつ未購入品の場合、購入画面を表示 %>
       <% unless current_user.id == @item.user_id || @item.order.present? %>
-        <%= link_to '購入画面に進む', item_orders_path(@item), class: "item-red-btn" %>
+        <%= link_to '購入画面に進む', item_orders_path(@item), data: { turbo: false }, class: "item-red-btn" %>
       <% end %>
     <% end %>
     <table class="detail-table">
